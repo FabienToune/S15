@@ -86,11 +86,14 @@ class LivraisonStandard(ModeLivraison):
 
         Pensez à valider le poids via self._valider_poids(poids_kg).
         """
-        raise NotImplementedError  # À COMPLÉTER
+        self._valider_poids(poids_kg)
+        return self.TARIF_BASE + self.TARIF_PAR_KG * poids_kg
+
 
     def delai_estime(self):
         """Délai fixe de la livraison standard."""
-        raise NotImplementedError  # À COMPLÉTER
+        # raise NotImplementedError  # À COMPLÉTER
+        return self.DELAI_JOURS
 
 
 class LivraisonExpress(ModeLivraison):
@@ -114,7 +117,27 @@ class LivraisonExpress(ModeLivraison):
     DELAI_JOURS = 1
 
     # À COMPLÉTER : __init__, property supplement, cout, delai_estime
+    def __init__(self, supplement=10.0):
+        super().__init__()
 
+        if not isinstance(supplement, float) or isinstance(supplement, bool):
+            raise TypeError("doit etre un nombre")
+        if supplement < 0 : 
+            raise ValueError("Doit etre positif ou null")
+        self._supplement = float(supplement)
+
+    @property
+    def supplement(self):
+        """Expose supplement en property lecture seule."""
+        return self._supplement
+
+    def cout(self, poids_kg):
+        """renvoie le cout avec le barème standard augmenté du supplément"""
+        return (self.TARIF_BASE + self.TARIF_PAR_KG * poids_kg) + self.supplement
+
+    def delai_estime(self):
+        """Renvoie le delai de livraison de la livraison express."""
+        return self.DELAI_JOURS
 
 class PointRelais(ModeLivraison):
     """Livraison en point relais : tarif forfaitaire, délai de 4 jours.
@@ -133,7 +156,27 @@ class PointRelais(ModeLivraison):
     DELAI_JOURS = 4
 
     # À COMPLÉTER : __init__, property nom_reseau, cout, delai_estime
+    def __init__(self, nom_reseau):
+        super().__init__()
 
+        if not isinstance(nom_reseau, str):
+            raise TypeError("Nom ud réseau doit etre une chaîne de caractère")
+        if not nom_reseau.strip():
+            raise ValueError("La chaine dois etre nom vide")
+        self._nom_reseau = nom_reseau
+
+    @property
+    def nom_reseau(self):
+        """Renvoi le nom du réseau"""
+        return self._nom_reseau
+
+    def cout(self, poids_kg):
+        """renvoi le cout de la livraison"""
+        return self.TARIF_FORFAIT
+    
+    def delai_estime(self):
+        """Renvoie le delai estimé pour ce mode de livraison"""
+        return self.DELAI_JOURS
 
 class RetraitMagasin:
     """Retrait en magasin : INTRUS du duck typing.
@@ -167,7 +210,7 @@ def comparer_livraisons(modes, poids_kg):
 
 if __name__ == "__main__":
     # Décommentez au fur et à mesure de votre avancement.
-    # modes = [LivraisonStandard(), LivraisonExpress(), PointRelais("RelaisColis")]
-    # for mode in modes:
-    #     print(mode.recapitulatif(2.5))
+    modes = [LivraisonStandard(), LivraisonExpress(), PointRelais("RelaisColis")]
+    for mode in modes:
+        print(mode.recapitulatif(2.5))
     pass
