@@ -1,0 +1,19 @@
+REPONSE 1 :
+le message d'erreur est TypeError: Can't instantiate abstract class LivraisonColisExpress
+without an implementation for abstract method 'delai_estime'. L'erreur survient lors de l'instantiation.
+
+REPONSE 2 :
+Ce qui provoque le refus est le fait que la sous classe LivraisonColisExpress
+n'a pas implementer la méthode delai_estime. Une sous-classe ne devient instanciable que si elle implémente toutes les méthodes abstraites de
+son parent.
+
+REPONSE 3 : 
+Dans une class abstract, Une implémentation partielle laisse la sous-classe abstraite.
+
+REPONSE 4 : 
+Si LivraisonColisExpress était seulement passée à une fonction qui appelle delai_estime(), alors l'erreur surgirait lors de l'appelle de la fonction
+L'oubli de delai_estime ne se voit ni à l'écriture de la classe, ni à sa première
+utilisation partielle. Il ne se manifeste qu'au moment précis où le protocole exige la méthode
+manquante. Plus le programme est gros, plus cette détection tardive coûte cher. les classes abstraites rend le contrat explicite et le fait
+vérifier tôt.
+
