@@ -23,3 +23,28 @@ Bien que que RetraitMagasin n'hérite pas de ModeLivraison, elle est compatible 
 RetraitMagasin posède une méthodes cout et une méthode delai_estime tout comme ModeLivraison.
 
 la différence est dans leur contrat : tandis que le duck typing etabli un contrat implicite, la class abstract etabli un contrat explicite
+
+
+Exercice 5
+
+1. Une situation où le duck typing serait préférable : une situation dans laquelle il faut activer un element.
+ModeReductionDeBruit, letureMusique, bluetooth sont toutes des class distinct mais qui posède une methode activer() qui retourne un bool.
+une methode nombre_activation(element) peut retourner le nombre d'activation. ici l'utilisation du duck typing est le plus adéquat car chaque fonctionalité fait partie
+d'une classe différent mais ont toute le meme protocole. l'utilisation de la classe abstraite obligerai a tous ces classes d'hérité d'un commun parent
+alors que  par exemple ModeReductionDeBruit a probablement déja une classe parent; ModeEcoute.
+
+Une situation où class abstract sertai préférable : Une class SortieAudio qui sera la class abstract avec des methodes abstract comme envoyer_son(), Augmenter_volume() diminuer_volume(), convertir_format() ..
+les classes, SortieHautParleur, sortieSansEcouteurSansFil, sortieEcouteurFilaire hériteront de la class SortieAudio.
+l'utilisation de la class abstrat est plus adapté car une sous-classene devient instanciable que si elle implémente toutes les méthodes abstraites de
+son parent. On veut garantir un contrat dés la construction.
+
+
+2. Les endroits où cette contrainte pourrait être placée sont : dans la classe abstraite ou dans le code client. il serai plus judicieux de placer dans le code client
+toute les boutique serai obligé d'appliquer cette contrainte. Le principe de la substitution de Liskov impose que les enfant doivent tenir les promesse du parent, 
+si le parent autorise des colis de plus de 30kg alors les enfants doivent aussi. 
+
+
+3. recapitulatif est définie une seule fois dans la classe abstraite parce que ce que c'est une méthode concret qui n'a pas besoin d'etre implémentation dans les sous-classe.
+Les sous-class hériteront automatiquement de cette méhtode.
+
+
