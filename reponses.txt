@@ -17,3 +17,9 @@ utilisation partielle. Il ne se manifeste qu'au moment précis où le protocole 
 manquante. Plus le programme est gros, plus cette détection tardive coûte cher. les classes abstraites rend le contrat explicite et le fait
 vérifier tôt.
 
+
+REPONSE 5 : 
+Bien que que RetraitMagasin n'hérite pas de ModeLivraison, elle est compatible via le duck typing : il satisfait également le protocole cout / delai_estime.
+RetraitMagasin posède une méthodes cout et une méthode delai_estime tout comme ModeLivraison.
+
+la différence est dans leur contrat : tandis que le duck typing etabli un contrat implicite, la class abstract etabli un contrat explicite

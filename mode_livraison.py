@@ -133,11 +133,12 @@ class LivraisonExpress(ModeLivraison):
 
     def cout(self, poids_kg):
         """renvoie le cout avec le barème standard augmenté du supplément"""
-        return (self.TARIF_BASE + self.TARIF_PAR_KG * poids_kg) + self.supplement
+        return self.TARIF_BASE + self.TARIF_PAR_KG * poids_kg + self.supplement
 
     def delai_estime(self):
         """Renvoie le delai de livraison de la livraison express."""
         return self.DELAI_JOURS
+
 
 class PointRelais(ModeLivraison):
     """Livraison en point relais : tarif forfaitaire, délai de 4 jours.
@@ -178,6 +179,7 @@ class PointRelais(ModeLivraison):
         """Renvoie le delai estimé pour ce mode de livraison"""
         return self.DELAI_JOURS
 
+
 class RetraitMagasin:
     """Retrait en magasin : INTRUS du duck typing.
 
@@ -188,7 +190,12 @@ class RetraitMagasin:
     """
 
     # À COMPLÉTER : cout, delai_estime (sans hériter de ModeLivraison)
-
+    def cout(self, poids_kg):
+        ModeLivraison._valider_poids(poids_kg)
+        return 0.0
+    
+    def delai_estime(self):
+        return 0
 
 def comparer_livraisons(modes, poids_kg):
     """Compare plusieurs modes de livraison pour un colis donné.
@@ -205,12 +212,25 @@ def comparer_livraisons(modes, poids_kg):
     Returns:
         str: Un tableau textuel, une ligne par mode.
     """
-    raise NotImplementedError  # À COMPLÉTER
 
+    lignes = []
+    for mode in modes:
+        lignes.append(
+            f"{type(mode).__name__} : {mode.cout(poids_kg):.2f} EUR en {mode.delai_estime()} jour(s)"
+        )
+    return "\n".join(lignes)
 
 if __name__ == "__main__":
     # Décommentez au fur et à mesure de votre avancement.
-    modes = [LivraisonStandard(), LivraisonExpress(), PointRelais("RelaisColis")]
-    for mode in modes:
-        print(mode.recapitulatif(2.5))
-    pass
+    modes = [
+        LivraisonStandard(),
+        LivraisonExpress(12.),
+        PointRelais("RelaisColis"),
+        RetraitMagasin(),
+    ]
+    print(comparer_livraisons(modes, 2.5))
+
+    print(isinstance(LivraisonStandard(), ModeLivraison))
+    print(isinstance(RetraitMagasin(), ModeLivraison))
+
+
