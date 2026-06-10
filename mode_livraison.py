@@ -120,7 +120,7 @@ class LivraisonExpress(ModeLivraison):
     def __init__(self, supplement=10.0):
         super().__init__()
 
-        if not isinstance(supplement, float) or isinstance(supplement, bool):
+        if not isinstance(supplement, (int, float)) or isinstance(supplement, bool):
             raise TypeError("doit etre un nombre")
         if supplement < 0 : 
             raise ValueError("Doit etre positif ou null")
@@ -225,7 +225,7 @@ if __name__ == "__main__":
     modes = [
         LivraisonStandard(),
         LivraisonExpress(12.),
-        PointRelais("RelaisColis"),
+        PointRelais("RelaisColi"),
         RetraitMagasin(),
     ]
     print(comparer_livraisons(modes, 2.5))
