@@ -35,10 +35,14 @@ class LivraisonColisExpress(ModeLivraison):
 
     TARIF_BASE = 6.99
     TARIF_PAR_KG = 2.00
+    DELAI_JOUR = 1
 
     def cout(self, poids_kg):
         """Coût premium au poids."""
         return self.TARIF_BASE + self.TARIF_PAR_KG * poids_kg
+    
+    def delai_estime(self):
+        return self.DELAI_JOUR
 
 
 if __name__ == "__main__":

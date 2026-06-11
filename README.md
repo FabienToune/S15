@@ -1,5 +1,7 @@
 # Programmation orientée objet - Soirée 15
 
+Bhuiyan Fardin
+
 ## Duck typing et classes abstraites
 
 Dépôt de l'atelier de la soirée 15. Il porte sur le **duck typing** et les **classes abstraites** (`abc.ABC`, `@abstractmethod`), illustrés sur une famille de modes de livraison d'un colis.
