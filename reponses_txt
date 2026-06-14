@@ -1,0 +1,14 @@
+Exr 3
+
+reverse=True ne convient pas car il inverse tout le tri, y compris l'ordre des auteurs.
+
+Avec la clé (auteur, -annee), les auteurs restent triés dans l'ordre alphabétique croissant tandis que les années sont triées du plus récent au plus ancien pour un même auteur.
+
+
+Exr 5
+
+Deux objets Livre ayant le même ISBN sont considérés comme égaux même si leurs titres sont différents.
+
+Les méthodes __eq__ et __hash__ utilisent l'ISBN pour définir l'identité d'un livre.
+
+Sans ces méthodes, les objets seraient comparés par leur adresse mémoire et le dédoublonnage ne fonctionnerait pas.
